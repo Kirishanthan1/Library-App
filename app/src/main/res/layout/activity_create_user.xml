@@ -1,8 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    >
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/tilName"
+        android:padding="5dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/bg_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="Name"
+            android:id="@+id/tetName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/tilName"
+        android:id="@+id/tilAge"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.TextInputEditText
+        android:hint="Age"
+        android:id="@+id/tetAge"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
 
 
 
 
-</RelativeLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/tilAge"
+        android:id="@+id/tilId"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:hint="Id"
+            android:id="@+id/tetId"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/tilId"
+        android:id="@+id/tilPassword"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+
+            android:hint="password"
+            android:id="@+id/tetPassword"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:textAllCaps="false"
+        android:text="Save"
+        android:id="@+id/btSave"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/tilPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+
+</RelativeLayout >
