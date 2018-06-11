@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hnditcom.libraryapp.R;
 import hnditcom.libraryapp.activities.Activity.CreateUserActivity;
+import hnditcom.libraryapp.activities.Activity.ViewUserActivity;
 
 public class AdminMemberAction extends BottomSheetDialogFragment{
 
@@ -22,7 +23,12 @@ public class AdminMemberAction extends BottomSheetDialogFragment{
         startActivity(intent);
     }
 
+@OnClick(R.id.btViewUser)
+public  void startViewUserActivity(){
+    Intent intent = new Intent(getActivity(), ViewUserActivity.class);
+    startActivity(intent);
 
+}
 
     public AdminMemberAction(){
 

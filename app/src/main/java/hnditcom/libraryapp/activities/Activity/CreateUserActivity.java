@@ -35,17 +35,18 @@ public class CreateUserActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.btSave)
-        public void createNewUser(){
+        public void createNewUser() {
 
-      User user = new User();
+        User user = new User();
         user.userName = tetName.getText().toString();
         user.password = tetPassword.getText().toString();
         user.age = tetAge.getText().toString();
         user.id = tetId.getText().toString();
 
-     //User user = new User(getUsername(),getPassword(),getAge(),getId());
-     userDatabaseReference.child(user.id).setValue(user);
-
+         if (!user.id.isEmpty()){
+        //User user = new User(getUsername(),getPassword(),getAge(),getId());
+        userDatabaseReference.child(user.id).setValue(user);
+    }
 
     }
 

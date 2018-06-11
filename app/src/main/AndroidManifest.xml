@@ -22,5 +22,6 @@
         </activity>
         <activity android:name=".activities.Activity.AdminDashboardActivity" />
         <activity android:name=".activities.Activity.CreateUserActivity" />
+        <activity android:name=".activities.Activity.ViewUserActivity" />
     </application>
 </manifest>
