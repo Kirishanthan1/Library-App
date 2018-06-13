@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,6 +32,8 @@ public class CreateUserActivity extends AppCompatActivity {
     @BindView(R.id.tetPassword)
     TextInputEditText tetPassword;
 
+
+
     FirebaseDatabase database;
     DatabaseReference userDatabaseReference;
 
@@ -45,7 +50,18 @@ public class CreateUserActivity extends AppCompatActivity {
 
          if (!user.id.isEmpty()){
         //User user = new User(getUsername(),getPassword(),getAge(),getId());
-        userDatabaseReference.child(user.id).setValue(user);
+        userDatabaseReference.child(user.id).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                tetName.setText("");
+                tetPassword.setText("");
+                tetAge.setText("");
+                tetId.setText("");
+                Toast.makeText(CreateUserActivity.this,"User added successfully",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
     }
 
     }

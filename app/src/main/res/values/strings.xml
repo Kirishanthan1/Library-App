@@ -3,4 +3,7 @@
     <string name="admin_dashboard">Admin Dashboard</string>
     <string name="manage_user_account">Manage User Account</string>
     <string name="manage_book_information">Manage Book Information</string>
+    <string name="Manage_users">Manage users</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

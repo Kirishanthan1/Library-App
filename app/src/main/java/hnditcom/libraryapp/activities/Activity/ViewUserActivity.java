@@ -35,11 +35,16 @@ RecyclerAdapterUser recyclerAdapterUser;
 ArrayList<User> userArrayList;
 
 
-@BindView(R.id.tvName)
-TextView tvName;
+
 
 @BindView(R.id.rcUser)
 RecyclerView rcUser;
+
+@OnClick(R.id.fab)
+public void addNewUser(){
+    Intent intent = new Intent(this, CreateUserActivity.class);
+    startActivity(intent);
+}
 
 
     @Override
@@ -48,6 +53,7 @@ RecyclerView rcUser;
         setContentView(R.layout.activity_view_user);
         ButterKnife.bind(this);
         initializeFirebase();
+
         setRecyclerView();
         getUserList();
        // getNameFromDatabase();
@@ -56,13 +62,14 @@ RecyclerView rcUser;
 
     private void setRecyclerView() {
 
-        for(int i=0;i<100;i++){
+       /* for(int i=0;i<100;i++){
             User user = new User();
             user.userName = "Dummy username "+i;
             user.id = "Dummy id "+i;
             user.age= "Dummy age "+i;
             userArrayList.add(user);
-        }
+        }*/
+
         recyclerAdapterUser = new RecyclerAdapterUser(userArrayList);
         rcUser.setAdapter(recyclerAdapterUser);
         rcUser.setLayoutManager(new LinearLayoutManager(this));
@@ -75,20 +82,23 @@ RecyclerView rcUser;
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
                 userArrayList.add(user);
+                recyclerAdapterUser.notifyDataSetChanged();
                // tvName.setText(user.userName+"\n "+"password is"+user.password);
-                tvName.setText("Currently there are "+userArrayList.size()+" users in the list");
+
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
-                tvName.setText(user.userName+"\n "+"password is "+user.password);
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                tvName.setText(user.userName+"\n"+"password is "+user.password);
+                if (userArrayList.remove(user)){
+                    recyclerAdapterUser.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -110,7 +120,7 @@ RecyclerView rcUser;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                tvName.setText(user.userName+" "+user.password);
+
             }
 
             @Override
@@ -126,7 +136,7 @@ RecyclerView rcUser;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.getValue(String.class);
-                tvName.setText(name);
+
             }
 
             @Override

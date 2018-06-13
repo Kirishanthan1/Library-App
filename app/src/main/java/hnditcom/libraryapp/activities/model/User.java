@@ -31,4 +31,17 @@ public class User {
         this.age = age;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof User){
+            User user1 = (User)obj;
+            if (user1.id.contentEquals(id)){
+                return true;
+
+            }
+            else return false;
+        }
+        else return false;
+    }
+
 }
