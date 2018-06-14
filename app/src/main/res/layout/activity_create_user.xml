@@ -94,9 +94,22 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:visibility="gone"
         android:textAllCaps="false"
         android:text="Save"
         android:id="@+id/btSave"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/tilPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:text="Update"
+        android:id="@+id/btUpdate"
         android:background="@color/colorPrimary"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

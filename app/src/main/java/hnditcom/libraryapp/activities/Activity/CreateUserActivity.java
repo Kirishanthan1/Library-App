@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,8 +18,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hnditcom.libraryapp.R;
 import hnditcom.libraryapp.activities.model.User;
+import hnditcom.libraryapp.activities.utility.Contants;
+import hnditcom.libraryapp.activities.utility.FirebaseReference;
 
 public class CreateUserActivity extends AppCompatActivity {
+
+
+    FirebaseReference firebaseReference;
 
     @BindView(R.id.tetName)
     TextInputEditText tetName;
@@ -32,6 +38,16 @@ public class CreateUserActivity extends AppCompatActivity {
     @BindView(R.id.tetPassword)
     TextInputEditText tetPassword;
 
+    String username;
+    String password;
+    String id;
+    String age;
+
+    @BindView(R.id.btSave)
+    Button btCreateUser;
+
+    @BindView(R.id.btUpdate)
+    Button btUpdateUser;
 
 
     FirebaseDatabase database;
@@ -74,13 +90,46 @@ public class CreateUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
         ButterKnife.bind(this);
+        getIntentData();
         initiateFirebase();
+        firebaseReference = new FirebaseReference();
 
+    }
+
+    @OnClick(R.id.btUpdate)
+    public void upDateUser(){
+        User user = new User(tetName.getText().toString(),
+                             tetPassword.getText().toString(),
+                            id,
+                              tetAge.getText().toString());
+        firebaseReference.upDateUser(user);
+        finish();
+    }
+
+    private void getIntentData() {
+        username = getIntent().getStringExtra(Contants.KEY_USERNAME);
+        if(username != null){
+           // Toast.makeText(this,"User stsrted this activity with username of"+username,Toast.LENGTH_LONG).show();
+            password = getIntent().getStringExtra(Contants.KEY_PASSWORD);
+            age = getIntent().getStringExtra(Contants.KEY_AGE);
+            id = getIntent().getStringExtra(Contants.KEY_ID);
+
+            tetName.setText(username);
+            tetPassword.setText(password);
+            tetAge.setText(age);
+            tetId.setText(id);
+
+            btUpdateUser.setVisibility(View.VISIBLE);
+        }
+        else {
+           // Toast.makeText(this,"User started this activity without extra values",Toast.LENGTH_LONG).show();
+            btCreateUser.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initiateFirebase() {
         database = FirebaseDatabase.getInstance();
-        userDatabaseReference = database.getReference("userData");
+        userDatabaseReference = database.getReference(Contants.USER_DATABASE_REFERENCE);
     }
     private String getUsername(){
         return tetName.getText().toString();

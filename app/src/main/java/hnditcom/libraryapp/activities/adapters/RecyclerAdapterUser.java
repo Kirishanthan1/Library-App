@@ -1,5 +1,6 @@
 package hnditcom.libraryapp.activities.adapters;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import hnditcom.libraryapp.R;
+import hnditcom.libraryapp.activities.Activity.CreateUserActivity;
 import hnditcom.libraryapp.activities.model.User;
+import hnditcom.libraryapp.activities.utility.Contants;
 
 public class RecyclerAdapterUser extends RecyclerView.Adapter<RecyclerAdapterUser.ViewHolder>{
 ArrayList<User> userArrayList;
@@ -54,7 +57,7 @@ ArrayList<User> userArrayList;
             @Override
             public void onClick(View v) {
                 User user1 = userArrayList.get(holder.getAdapterPosition());
-                FirebaseDatabase.getInstance().getReference("userData")
+                FirebaseDatabase.getInstance().getReference(Contants.USER_DATABASE_REFERENCE)
                         .child(user1.id).setValue(null);
 
             }
@@ -65,7 +68,15 @@ ArrayList<User> userArrayList;
 
             @Override
             public void onClick(View v) {
+                User user1 = userArrayList.get(holder.getAdapterPosition());
+                Intent intent = new Intent(holder.itemView.getContext(),CreateUserActivity.class);
 
+                intent.putExtra(Contants.KEY_USERNAME,user1.userName);
+                intent.putExtra(Contants.KEY_PASSWORD,user1.password);
+                intent.putExtra(Contants.KEY_ID,user1.id);
+                intent.putExtra(Contants.KEY_AGE,user1.age);
+
+                holder.itemView.getContext().startActivity(intent);
 
             }
         });

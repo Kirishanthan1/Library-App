@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import hnditcom.libraryapp.R;
 import hnditcom.libraryapp.activities.adapters.RecyclerAdapterUser;
 import hnditcom.libraryapp.activities.model.User;
+import hnditcom.libraryapp.activities.utility.Contants;
 
 public class ViewUserActivity extends AppCompatActivity {
 
@@ -82,7 +83,9 @@ public void addNewUser(){
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
                 userArrayList.add(user);
-                recyclerAdapterUser.notifyDataSetChanged();
+                int size = userArrayList.size();
+
+                recyclerAdapterUser.notifyItemInserted(size-1);
                // tvName.setText(user.userName+"\n "+"password is"+user.password);
 
             }
@@ -90,14 +93,18 @@ public void addNewUser(){
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 User user = dataSnapshot.getValue(User.class);
-
+                int index = userArrayList.indexOf(user);
+                userArrayList.remove(user);
+                userArrayList.add(index,user);
+                recyclerAdapterUser.notifyItemChanged(index);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                int index = userArrayList.indexOf(user);
                 if (userArrayList.remove(user)){
-                    recyclerAdapterUser.notifyDataSetChanged();
+                    recyclerAdapterUser.notifyItemRemoved(index);
                 }
             }
 
@@ -148,7 +155,7 @@ public void addNewUser(){
 
     private void initializeFirebase() {
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("userData");
+        databaseReference = firebaseDatabase.getReference(Contants.USER_DATABASE_REFERENCE);
         userArrayList = new ArrayList<>();
     }
 
