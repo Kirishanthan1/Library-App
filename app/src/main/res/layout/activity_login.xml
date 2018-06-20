@@ -16,8 +16,10 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
-            android:hint="username"
+            android:hint="Id"
             android:id="@+id/tetUserName"
+            android:inputType="number"
+            android:maxLength="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

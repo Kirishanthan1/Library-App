@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -28,24 +30,25 @@ import hnditcom.libraryapp.activities.utility.Contants;
 
 public class ViewUserActivity extends AppCompatActivity {
 
-FirebaseDatabase firebaseDatabase;
-DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
-RecyclerAdapterUser recyclerAdapterUser;
+    RecyclerAdapterUser recyclerAdapterUser;
+    ArrayList<User> searchResult;
+    ArrayList<User> userArrayList;
 
-ArrayList<User> userArrayList;
+    @BindView(R.id.svUser)
+    SearchView svUser;
 
 
+    @BindView(R.id.rcUser)
+    RecyclerView rcUser;
 
-
-@BindView(R.id.rcUser)
-RecyclerView rcUser;
-
-@OnClick(R.id.fab)
-public void addNewUser(){
+    @OnClick(R.id.fab)
+    public void addNewUser(){
     Intent intent = new Intent(this, CreateUserActivity.class);
     startActivity(intent);
-}
+    }
 
 
     @Override
@@ -57,8 +60,55 @@ public void addNewUser(){
 
         setRecyclerView();
         getUserList();
+        configureSearchView();
        // getNameFromDatabase();
        // getUserFromDatabase();
+    }
+
+    private void configureSearchView() {
+        searchResult = new ArrayList<>();
+    svUser.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            Log.d(">>/","onQueryTextSubmit:"+query);
+            searchUsers(query);
+
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            Log.d(">>/","onQueryTextChange:"+newText);
+            if (newText.isEmpty()){
+                updateRecyclerView(userArrayList);
+            }
+           /* if (newText.length()==3){
+                searchUsers(newText);
+            }*/
+           searchUsers(newText);
+            return false;
+        }
+    });
+    }
+
+    private void searchUsers(String query) {
+        searchResult.clear();
+        for (User user:userArrayList){
+            if (user.id.contains(query)){
+                searchResult.add(user);
+            }
+            if(!searchResult.isEmpty()){
+                updateRecyclerView(searchResult);
+            }
+
+        }
+    }
+
+    private void updateRecyclerView(ArrayList<User> searchResult) {
+        recyclerAdapterUser = new RecyclerAdapterUser(searchResult);
+        rcUser.setAdapter(recyclerAdapterUser);
+        rcUser.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     private void setRecyclerView() {

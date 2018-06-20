@@ -22,10 +22,18 @@
 
         </android.support.design.widget.AppBarLayout>
 
+<android.support.v7.widget.SearchView
+    android:id="@+id/svUser"
+    app:queryHint="Search a user by id"
+    android:inputType="number"
+    android:layout_below="@+id/apl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+</android.support.v7.widget.SearchView>
 
         <android.support.v7.widget.RecyclerView
-            android:layout_below="@+id/apl"
+            android:layout_below="@+id/svUser"
             android:background="@color/cardview_shadow_start_color"
             android:id="@+id/rcUser"
             android:layout_width="match_parent"

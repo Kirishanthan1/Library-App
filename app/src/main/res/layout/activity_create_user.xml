@@ -63,6 +63,7 @@
         <android.support.design.widget.TextInputEditText
             android:hint="Id"
             android:id="@+id/tetId"
+            android:maxLength="3"
             android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
